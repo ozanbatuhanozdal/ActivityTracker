@@ -1,6 +1,6 @@
 DEPENDENCİES
 .NET > 5.0
-MYSQL > 8.0.22 
+POSTGRE > 13.1
 
 
 
@@ -9,6 +9,10 @@ WİLL BE UPDATED TİME TO TİME
 SAMPLE APPSETTİNGS.JSON
 
 {
+  "ConnectionStrings": {
+    "ActivityTrackerDB": "Server=localhost;Port=5432;Username=user; Password=root;Database=ActivityTrackerDB;Integrated Security=true;Pooling=true;"
+  },
+
   "Logging": {
     "LogLevel": {
       "Default": "Information",
