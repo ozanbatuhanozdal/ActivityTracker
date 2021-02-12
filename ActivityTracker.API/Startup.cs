@@ -6,6 +6,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Microsoft.EntityFrameworkCore;
+using MediatR;
+using ActivityTracker.Application.Activities;
 
 namespace ActivityTracker.API
 {
@@ -21,10 +23,8 @@ namespace ActivityTracker.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
+            services.AddMediatR(typeof(List.Handler).Assembly);
             services.AddControllers();
-
             services.AddDbContext<DatabaseContext>(options => options.UseNpgsql(Configuration.GetConnectionString("ActivityTrackerDB")));
             services.AddSwaggerGen(c =>
             {

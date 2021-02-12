@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ActivityTracker.Application\ActivityTracker.Application.csproj" />
     <ProjectReference Include="..\ActivityTracker.Persistance\ActivityTracker.Persistance.csproj" />
   </ItemGroup>
 

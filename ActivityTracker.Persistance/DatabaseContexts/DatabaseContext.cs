@@ -8,9 +8,19 @@ namespace ActivityTracker.Persistance.DatabaseContexts
 
 
         public DatabaseContext(DbContextOptions options) : base (options)
-        {            
+        {        
+            
+
         }
 
         public DbSet<Value> Value { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            
+        }
+
     }
 }

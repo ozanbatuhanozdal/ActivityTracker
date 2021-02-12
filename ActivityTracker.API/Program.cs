@@ -1,4 +1,5 @@
 using ActivityTracker.Persistance.DatabaseContexts;
+using ActivityTracker.Persistance.SeedDatas;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,7 @@ namespace ActivityTracker.API
                 {
                     var context = services.GetRequiredService<DatabaseContext>();
                     context.Database.Migrate();
+                    Seed.SeedData(context);
                 }
                 catch(Exception ex)
                 {
