@@ -47,14 +47,14 @@ namespace ActivityTracker.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ActivityTracker.API v1"));
+               // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ActivityTracker.API v1"));
             }
 
             app.UseHttpsRedirection();
-            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {

@@ -33,7 +33,7 @@ namespace ActivityTracker.Application.Activities
 
             public Handler(DatabaseContext context)
             {
-                context = _context;
+                _context = context;
 
             }
 
