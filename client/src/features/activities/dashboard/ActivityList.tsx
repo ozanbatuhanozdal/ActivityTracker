@@ -1,52 +1,54 @@
-import React from "react";
-import { Item, Button, Label, Segment, Image } from "semantic-ui-react";
-import { IActivity } from "../../../app/models/activity";
+import { observer } from "mobx-react-lite";
+import React, { SyntheticEvent, useState } from "react";
+import { Button, Item, Label, Segment,Image } from "semantic-ui-react";
+import { useStore } from "../../../app/stores/store";
 
-interface IProps {
-  activities: IActivity[];
-  selectActivity: (id: string) => void;
-  deleteActivity: (e:any,id: string) => void;
-  submitting:boolean;
-  target:string
-}
+export default observer(function ActivityList() {
+  const { activityStore } = useStore();
+  const { deleteActivity, activitiesByDate, loading } = activityStore;
 
-export const ActivityList: React.FC<IProps> = ({
-  activities,
-  selectActivity,
-  deleteActivity,
-  submitting,
-  target
-}) => {
+  const [target, setTarget] = useState("");
+
+  function handleActivityDelete(
+    e: SyntheticEvent<HTMLButtonElement>,
+    id: string
+  ) {
+    setTarget(e.currentTarget.name);
+    deleteActivity(id);
+  }
+
   return (
-    <Segment clearing>
+    <Segment>
       <Item.Group divided>
-        {activities.map((activity) => (
+        {activitiesByDate.map((activity) => (
           <Item key={activity.id}>
             <Item.Content>
-              <Image
+            <Image
                 floated="right"
                 size="small"
                 src={`/assets/categoryImages/${activity.category}.jpg`}
               />
-              <Item.Header as="a">{activity.title}</Item.Header>
+              <Item.Header as="a">
+                {activity.title}             
+              </Item.Header>
               <Item.Meta>{activity.date}</Item.Meta>
               <Item.Description>
                 <div>{activity.description}</div>
                 <div>
-                  {activity.city},{activity.venue}
+                  {activity.city}, {activity.venue}
                 </div>
               </Item.Description>
               <Item.Extra>
                 <Button
-                  onClick={() => selectActivity(activity.id)}
+                  onClick={() => activityStore.selectActivity(activity.id)}
                   floated="right"
                   content="View"
                   color="blue"
                 />
-                 <Button
+                <Button
                   name={activity.id}
-                  loading={target === activity.id && submitting}
-                  onClick={(e) => deleteActivity(e,activity.id)}
+                  loading={loading && target === activity.id}
+                  onClick={(e) => handleActivityDelete(e, activity.id)}
                   floated="right"
                   content="Delete"
                   color="red"
@@ -59,4 +61,4 @@ export const ActivityList: React.FC<IProps> = ({
       </Item.Group>
     </Segment>
   );
-};
+});
